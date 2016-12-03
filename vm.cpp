@@ -167,7 +167,7 @@ main(int argc, char** argv)
     opcode = vm.readFromPC();
     if (opcode > 21)
     {
-      fprintf(stderr, ">>> ERROR: Invalid opcode %u at address %u\n",
+      fprintf(stderr, ">>> ERROR: Invalid opcode %u at address 0x%04x\n",
         opcode, currentPC);
       return(1);
     }
@@ -194,7 +194,7 @@ main(int argc, char** argv)
         paramA = vmReadRegisterNum(vm.readFromPC());
         if (vm.vmStack.empty())
         {
-          fprintf(stderr, ">>> ERROR: Pop empty stack at address %u\n",
+          fprintf(stderr, ">>> ERROR: Pop empty stack at address 0x%04x\n",
             currentPC);
           return(1);
         }
@@ -317,12 +317,18 @@ main(int argc, char** argv)
         break;
 
       default:
-        fprintf(stderr, ">>> ERROR: Unimplemented opcode %u at address %u\n",
+        fprintf(stderr, ">>> ERROR: Unimplemented opcode %u at address 0x%04x\n",
           opcode, currentPC);
         return(1);
     }
   }
   
   printf(">>> VM Exit\n");
+  printf("VM registers are:\n");
+  for(int i = 0; i < 8; ++i)
+  {
+    printf("R%d = 0x%04x\n", i, vm.vmRegisters[i]);
+  }
+
   return(0);
 }

@@ -81,6 +81,11 @@ runPass(const std::string& filename, PassMode passMode)
       labels[name] = currentPC;
       printf(".%s: %04x\n", name.data(), currentPC);
     }
+    else if (instr != "")
+    {
+      fprintf(stderr, "Invalid opcode: '%s'\n", instr.data());
+      exit(0);
+    }
 
     if ((currentPC != vm.programCounter) || isData)
     {
