@@ -130,7 +130,8 @@ runPass(const std::string& filename, PassMode passMode)
           else
           {
             // Constant
-            vm.writeToPC(atoi(instr.data()) & 0x7fff);
+            char* endptr;
+            vm.writeToPC(strtoul(instr.data(), &endptr, 0) & 0x7fff);
           }
         }
       }
